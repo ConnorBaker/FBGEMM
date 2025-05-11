@@ -56,8 +56,14 @@ macro(add_gtest TESTNAME)
     EmbeddingSpMDMTestUtils.cc
     QuantizationHelpers.cc
     TestUtils.cc)
-  # Ensure that we can include header files from the root directory.
-  target_include_directories(${TESTNAME} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/..)
+
+  # Ensure that we can include header files from the root and bench directories
+  target_include_directories(${TESTNAME} PRIVATE
+    ${CMAKE_CURRENT_SOURCE_DIR}/..
+    ${CMAKE_CURRENT_SOURCE_DIR}/../bench
+    ${CMAKE_CURRENT_SOURCE_DIR}/../src
+  )
+
   # To compile test files with AVX2 turned on
   # For static build, defining FBGEMM_STATIC to avoid generating
   # functions with _dllimport attributes.
